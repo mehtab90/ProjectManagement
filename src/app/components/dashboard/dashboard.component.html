@@ -1,0 +1,147 @@
+<div class="projects-dashboard">
+  <h1>Projects Dashboard</h1>
+
+  <!-- Select All Checkbox -->
+  <div class="select-all">
+    <input type="checkbox" [checked]="allProjectsSelected()" (change)="toggleSelectAll($event)">
+    <label>Select All Projects</label>
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="project-header">
+    <div class="project-info">
+      <span class="project-header">Select</span>
+      
+    </div>
+    <div class="project-info">
+      <span class="project-header">Project ID</span>
+      
+    </div>
+    <div class="project-info">
+     
+      <span class="project-header">Name</span>
+     
+    </div>
+    <div class="project-info">
+      
+      <span class="project-header">Client Name</span>
+      
+    </div>
+    <div class="project-info">
+     
+      <span class="project-header">Project Manager</span>
+     
+    </div>
+    <div class="project-info">
+      
+      <span class="project-header">Revenue</span>
+      
+    </div>
+    <div class="project-info">
+     
+      <span class="project-header">Revenue Client Currency</span>
+      
+    </div>
+    <div class="project-info">
+      
+      <span class="project-header">Start Date</span>
+      
+    </div>
+    <div class="project-info">
+      
+      <span class="project-header">End Date</span>
+      
+    </div>
+    <div class="project-info" style="background-color: aquamarine;">
+      <button><span class="button" >Status</span></button>
+      
+     
+    </div>
+   
+    <div class="project-info" style="background-color: aquamarine;">
+      <button><span class="button" >Expand Details</span></button>
+      
+     
+    </div>
+  </div>
+  <div *ngFor="let project of projects" class="project">
+    <div class="project-header">
+      <input type="checkbox" [checked]="isProjectSelected(project.id)" (change)="toggleProjectSelection(project.id)">
+      <div class="project-info">
+        <span class="project-header">{{ project.id }}</span>
+        
+      </div>
+      <div class="project-info">
+       
+        <span class="project-header">{{ project.name }}</span>
+       
+      </div>
+      <div class="project-info">
+        
+        <span class="project-header">Client Name</span>
+        
+      </div>
+      <div class="project-info">
+       
+        <span class="project-header">Project Manager</span>
+       
+      </div>
+      <div class="project-info">
+        
+        <span class="project-header">Revenue</span>
+        
+      </div>
+      <div class="project-info">
+       
+        <span class="project-header">Revenue Client Currency</span>
+        
+      </div>
+      <div class="project-info">
+        
+        <span class="project-header">{{ project.startDate }}</span>
+        
+      </div>
+      <div class="project-info">
+        
+        <span class="project-header">{{ project.endDate }}</span>
+        
+      </div>
+      <div class="project-info" style="background-color: aquamarine;">
+        <button><span class="button" >{{ project.status }}</span></button>
+        
+       
+      </div>
+     
+
+     
+      <!-- <button (click)="toggleProjectExpansion(project.id)">
+        {{ expandedProjectId === project.id ? '-' : '+' }} 
+      </button> -->
+    </div>
+   
+
+    <!-- Project Details -->
+    <div *ngIf="expandedProjectId === project.id" class="project-details">
+      <p>{{ project.description }}</p>
+      <p><strong>Start Date:</strong> {{ project.startDate| date }}</p>
+      <p><strong>End Date:</strong> {{ project.endDate| date }}</p>
+
+      <!-- Tasks List -->
+      <div class="tasks" *ngIf="project.tasks && project.tasks.length > 0">
+        <h3>Tasks</h3>
+        <div *ngFor="let task of project.tasks" class="task">
+          <p><strong>Task Name:</strong> {{ task.title }}</p>
+          <p><strong>Assigned To:</strong> {{ task.assignedTo }}</p>
+          <p><strong>Status:</strong> {{ task.status }}</p>
+          <p><strong>Deadline:</strong> {{ task.deadline | date }}</p>
+          <button >Assign Task</button>
+        </div>
+      </div>
+
+      <!-- No Tasks Message -->
+      <div *ngIf="!project.tasks || project.tasks.length === 0">
+        <p>No tasks for this project.</p>
+      </div>
+    </div>
+  </div>
+</div>
